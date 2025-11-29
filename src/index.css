@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cyberpunk Dark Theme */
+    --background: 220 20% 8%;
+    --foreground: 180 100% 90%;
+
+    --card: 220 25% 12%;
+    --card-foreground: 180 100% 90%;
+
+    --popover: 220 30% 10%;
+    --popover-foreground: 180 100% 90%;
+
+    /* Electric Cyan Primary */
+    --primary: 180 100% 50%;
+    --primary-foreground: 220 20% 8%;
+    --primary-glow: 180 100% 65%;
+
+    /* Neon Purple Secondary */
+    --secondary: 280 90% 60%;
+    --secondary-foreground: 180 100% 90%;
+
+    /* Muted Grid Lines */
+    --muted: 220 15% 18%;
+    --muted-foreground: 180 30% 60%;
+
+    /* Matrix Green Accent (Safe Zone) */
+    --accent: 120 100% 45%;
+    --accent-foreground: 220 20% 8%;
+
+    /* Danger Red */
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 180 100% 90%;
+
+    /* Warning Orange */
+    --warning: 30 100% 55%;
+    --warning-foreground: 220 20% 8%;
+
+    --border: 180 40% 25%;
+    --input: 220 25% 15%;
+    --ring: 180 100% 50%;
+
+    --radius: 0.375rem;
+
+    /* Gradients */
+    --gradient-cyber: linear-gradient(135deg, hsl(180 100% 50%), hsl(280 90% 60%));
+    --gradient-grid: linear-gradient(180deg, hsl(220 25% 12%), hsl(220 20% 8%));
+    --gradient-danger: linear-gradient(135deg, hsl(0 85% 55%), hsl(30 100% 55%));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 20px hsl(180 100% 50% / 0.3);
+    --shadow-glow-strong: 0 0 30px hsl(180 100% 50% / 0.5);
+    --shadow-purple: 0 0 20px hsl(280 90% 60% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* Cyberpunk Grid Effect */
+  .grid-bg {
+    background-image: 
+      linear-gradient(hsl(180 40% 25% / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(180 40% 25% / 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Glowing Border Effect */
+  .glow-border {
+    position: relative;
+    border: 1px solid hsl(var(--primary));
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary)), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+  }
+
+  /* Scan Line Animation */
+  @keyframes scan-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .scan-line {
+    animation: scan-line 8s linear infinite;
+  }
+
+  /* Pulse Animation */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: var(--shadow-glow); }
+    50% { box-shadow: var(--shadow-glow-strong); }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
